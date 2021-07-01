@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  create_infra:
+    docker: 
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run: 
+        name: Infrastructure Setup 
+        command: |
+          aws cloudformation deploy \
+          --template-file template.yml \
+          --stack-name myStack
+          return 1
+      - destroy_env
+          when: on_fail
+
+commands:
+  destroy_env:
+    steps:
+      - run:
+          name: Destroy Environment
+          command: |
+            aws cloudformation delete-stack --stack-name myStack
+
+workflows:
+  my_workflow:
+    jobs:
+      - create_infra
+
+
