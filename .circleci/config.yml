@@ -20,7 +20,7 @@ jobs:
             --template-file template.yml \
             --stack-name myStack
             return 1
-      - destroy_env
+      - destroy_env:
           when: on_fail
 
 
