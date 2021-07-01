@@ -14,7 +14,7 @@ jobs:
           --stack-name myStack
           return 1
       - destroy_env
-          when: on_fail
+        when: on_fail
 
 commands:
   destroy_env:
